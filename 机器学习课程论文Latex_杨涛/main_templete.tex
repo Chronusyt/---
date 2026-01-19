@@ -1,0 +1,437 @@
+%% 该模板修改自《计算机学报》latex 模板
+%% 主要是将双栏改成单栏，去掉了部分计算机学报标识；
+%% 源文件自：https://www.overleaf.com/latex/templates/latextemplet-cjc-xelatex/ybmmymncrrmw
+%% 
+%%
+%% This is file `CjC_template_tex.tex',
+%% is modified by Zhi Wang (zhiwang@ieee.org) based on the template 
+%% provided by Chinese Journal of Computers (http://cjc.ict.ac.cn/).
+%%
+%% This version is capable with Overleaf (XeLaTeX).
+%%
+%% Update date: 2023/03/10
+%% -------------------------------------------------------------------
+%% Copyright (C) 2016--2023 
+%% -------------------------------------------------------------------
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008 or later.
+%% -------------------------------------------------------------------
+
+\documentclass[10.5pt,compsoc,UTF8]{CjC}
+\usepackage{CTEX}
+\usepackage{graphicx}
+\usepackage{footmisc}
+\usepackage{subfigure}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[noadjust]{cite}
+\usepackage{amsmath,amsthm}
+\usepackage{amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{ccaption}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{xcolor,stfloats}
+\usepackage{comment}
+\setcounter{page}{1}
+\graphicspath{{figures/}}
+\usepackage{cuted}%flushend,
+\usepackage{captionhack}
+\usepackage{epstopdf}
+\usepackage{gbt7714}
+
+%===============================%
+
+\headevenname{\mbox{\quad} \hfill  \mbox{\zihao{-5}{ \hfill 《机器学习》课程论文  } \hspace {50mm} \mbox{2026 年 1 月}}}%
+\headoddname{杨涛 \hfill 基于机器学习的冠心病风险预测模型构建与评估}%
+
+%footnote use of *
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\setcounter{footnote}{0}
+\renewcommand\footnotelayout{\zihao{5-}}
+
+\newtheoremstyle{mystyle}{0pt}{0pt}{\normalfont}{1em}{\bf}{}{1em}{}
+\theoremstyle{mystyle}
+\renewcommand\figurename{图~}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}
+\renewcommand{\labelenumi}{(\arabic{enumi})}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\newcommand{\abc}{\color{white}\vrule width 2pt}
+\renewcommand{\bibsection}{}
+\makeatletter
+\renewcommand{\@biblabel}[1]{[#1]\hfill}
+\makeatother
+\setlength\parindent{2em}
+%\renewcommand{\hth}{\begin{CJK*}{UTF8}{gbsn}}
+%\renewcommand{\htss}{\begin{CJK*}{UTF8}{gbsn}}
+
+
+\begin{document}
+
+\hyphenpenalty=50000
+\makeatletter
+\newcommand\mysmall{\@setfontsize\mysmall{7}{9.5}}
+\newenvironment{tablehere}
+  {\def\@captype{table}}
+
+\let\temp\footnote
+\renewcommand \footnote[1]{\temp{\zihao{-5}#1}}
+
+
+\thispagestyle{plain}%
+\thispagestyle{empty}%
+\pagestyle{CjCheadings}
+
+% \begin{table*}[!t]
+\vspace {-13mm}
+
+
+\onecolumn
+\zihao{5-}\noindent 杨涛 \hfill 《机器学习》课程设计报告\hfill 2026 年 1 月\\
+\noindent\rule[0.25\baselineskip]{\textwidth}{1pt}
+
+% \onecolumn
+% \zihao{5-}\noindent 第??卷\quad 第?期 \hfill 计\quad 算\quad 机\quad 学\quad 报\hfill Vol. ??  No. ?\\
+% \zihao{5-}
+% 20??年?月 \hfill CHINESE JOURNAL OF COMPUTERS \hfill ???. 20??\\ 
+% \noindent\rule[0.25\baselineskip]{\textwidth}{1pt}
+
+{
+\centering
+\vspace {11mm}
+{\zihao{2} \heiti 基于机器学习的冠心病风险预测模型构建与评估}
+
+\vskip 5mm
+
+{\zihao{4}\fangsong 杨涛$^{1)}$}
+
+\vspace {5mm}
+
+\zihao{5}{$^{1)}$(暨南大学，信息科学技术学院, 广州)}
+
+}
+
+\vskip 5mm
+
+\zihao{5}{
+\setlength{\baselineskip}{16pt}\selectfont{
+\noindent {\heiti 摘\quad 要\quad }
+本研究系统地构建和比较了多种机器学习模型用于冠心病风险预测，包括传统机器学习方法、集成学习方法和深度学习方法。基于Framingham心脏研究数据集，研究设计了完整的数据处理流程，包括SMOTE平衡采样和特征工程。实验结果表明，异质堆叠集成模型在冠心病预测中表现最优，准确率达92.0\%，AUC值达0.963，显著优于传统单一模型和深度学习模型。通过帕累托前沿分析，本研究为不同临床场景提供了模型选择策略。特征重要性分析揭示年龄、收缩压和高血压史是关键预测因素，并发现教育水平与年龄的交互作用对风险评估具有重要意义。本研究为精准医疗中的风险分层和个体化干预提供了理论基础和实用工具。
+\par}}
+\vspace {5mm}
+
+\zihao{5}{\noindent
+{\heiti 关键词 \quad }{冠心病风险预测；机器学习；集成学习；堆叠模型；特征重要性分析；深度学习}
+}
+% \zihao{5-}{\heiti 中图法分类号\quad } TP\rm{\quad \quad \quad     }
+% {\heiti DOI号:\quad } *投稿时不提供DOI号
+
+
+\vskip 7mm
+
+\begin{center}
+\zihao{3}{ \heiti Construction and Evaluation of Machine Learning-based Coronary Heart Disease Risk Prediction Models}\\
+\vspace {5mm}
+\zihao{5}{ YANG Tao$^{1)}$}\\
+\vspace {2mm}
+\zihao{5-}{{$^{1)}$(College of Information Science and Technology, Jinan University, Guangzhou, China)}}
+
+\end{center}
+
+\zihao{5}{
+\setlength{\baselineskip}{18pt}\selectfont{
+{\bf Abstract}\quad This study systematically constructs and compares various machine learning models for coronary heart disease (CHD) risk prediction, including traditional machine learning methods, ensemble learning methods, and deep learning approaches. Based on the Framingham Heart Study dataset, a comprehensive data processing pipeline was designed, incorporating SMOTE balanced sampling and feature engineering. Experimental results demonstrate that the heterogeneous stacked ensemble model achieves the best performance in CHD prediction, with an accuracy of 92.0\% and an AUC of 0.963, significantly outperforming traditional single models and deep learning models. Through Pareto frontier analysis, this study provides model selection strategies for different clinical scenarios. Feature importance analysis reveals that age, systolic blood pressure, and hypertension history are key predictive factors, and discovers that the interaction between education level and age is significant for risk assessment. This research provides theoretical foundations and practical tools for risk stratification and individualized intervention in precision medicine.
+\par}}
+\vspace {5mm}
+
+{{\bf Keywords}\quad Coronary Heart Disease Risk Prediction; Machine Learning; Ensemble Learning; Stacking Models; Feature Importance Analysis; Deep Learning\par}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\zihao{5}
+\vskip 10mm
+% \begin{multicols}{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{\heiti 引言}
+
+冠心病（冠状动脉粥样硬化性心脏病）是全球死亡的主要原因之一。根据2019年的数据，全球约有1.97亿人患有冠心病，因冠心病导致的死亡人数约为914万~\cite{safiri2022burden}。在中国，随着人口老龄化和心脑血管疾病危险因素增多，冠心病的发病率和患病率持续上升。尽管冠心病通常需要数十年才能出现健康问题，但在此期间有足够的机会进行有效干预。因此，建立冠心病风险预测模型至关重要，这可以帮助早期发现高危人群，并根据其个体发病风险进行干预，从而有效预防冠心病的发生。
+
+传统冠心病风险评估主要依赖Framingham风险评分等传统模型，虽然这些模型在西方人群中表现较好，但在中国等亚洲人群中的适用性存在争议。此外，传统评估方法往往只考虑有限的风险因素，难以捕捉复杂的非线性关系和特征交互作用，导致预测精度有限。近年来，机器学习技术的快速发展为构建更精准的疾病风险预测模型提供了新的途径~\cite{weng2017can}。特别是集成学习方法，通过组合多个基学习器的预测结果，能够有效提升模型的预测性能和稳定性~\cite{dietterich2000ensemble}。
+
+本研究基于Framingham心脏研究数据集，系统地比较了传统机器学习（逻辑回归、支持向量机、决策树、K最近邻、随机森林）、集成学习（投票法、Boosting、堆叠集成）和深度学习（多层感知机、卷积神经网络）方法在冠心病风险预测任务上的性能表现。本研究主要目标是：(1) 系统地构建和比较多种机器学习方法在冠心病风险预测任务上的性能；(2) 探索最优的集成学习策略；(3) 分析关键风险因素及其交互作用。通过上述研究，本文力求构建高精度的冠心病风险预测模型，并为临床实践中的模型选择提供科学依据。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\heiti 相关工作}
+
+\subsection{国外研究进展}
+
+国外在基于机器学习的冠心病风险预测研究方面起步较早。早在2010年，研究者首次尝试将机器学习算法应用于心血管疾病风险预测，通过比较传统统计方法与随机森林、神经网络等机器学习算法，证实了机器学习方法在预测性能上的优势~\cite{weng2017can}。2019年，Alaa等人通过分析多达735个特征变量，利用随机生存森林算法构建了一个综合性心血管风险预测模型，为多特征机器学习模型在临床应用中的可行性提供了证据~\cite{alaa2019cardiovascular}。
+
+近年来，国外研究重点转向集成学习和深度学习方法。研究者利用电子健康记录数据，通过深度学习模型预测住院患者的心血管事件风险，取得了突破性成果。同时，可解释性人工智能也成为研究热点，Lundberg等人开发的SHAP值方法为机器学习模型在医疗领域的透明决策提供了重要工具~\cite{lundberg2017unified}。
+
+\subsection{国内研究进展}
+
+国内学者主要通过逻辑回归等传统方法识别风险因素，筛选出性别、年龄、吸烟量、胆固醇水平等关键危险因素，并验证了决策树和随机森林等算法在预测中的有效性。随着技术发展，国内研究开始注重遗传与临床数据的整合，利用递归特征消除和随机森林算法构建区域特异性风险模型。在模型可解释性方面，研究团队采用XGBoost结合SHAP值分析，确定了多种非传统指标对冠心病共病的预测价值。
+
+\subsection{集成学习方法}
+
+集成学习是机器学习中的重要研究方向，它通过组合多个基学习器的预测结果来提升整体预测性能~\cite{zhou2012ensemble}。主要方法包括：(1) 投票法集成，通过多数投票或概率加权决策；(2) Boosting方法，如AdaBoost~\cite{freund1997decision}和梯度提升机~\cite{friedman2001greedy}，通过序列化训练基学习器；(3) 堆叠集成学习~\cite{wolpert1992stacked}，将多个基学习器的预测结果作为输入训练元学习器。研究表明，当基学习器具有互补性能时，堆叠集成能够显著提高预测准确率~\cite{dzeroski2004combining}。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\heiti 方法}
+
+\subsection{数据集描述}
+
+本研究的数据来源于Framingham心脏研究数据集，该数据集源自美国历史最悠久的心血管疾病研究项目之一。数据涵盖了4240名调查对象的16项人口学特征、行为习惯和临床检查指标等潜在疾病危险因素。数据集包含15个自变量，并以"10年内是否发生冠心病"为因变量。主要特征包括：人口统计学特征（性别、年龄、教育水平）、行为风险因素（吸烟状况、每日吸烟数量）、医疗史（血压药物使用、中风史、高血压、糖尿病）以及生理指标（总胆固醇、收缩压、舒张压、BMI、心率、血糖）。
+
+\subsection{数据预处理}
+
+\subsubsection{缺失值处理}
+
+数据集中多个特征存在不同程度的缺失值，其中血糖特征的缺失率最高（9.15\%），教育水平的缺失率为2.48\%。由于各特征的缺失率均未超过10\%，研究采用直接删除含有缺失值的行的方法处理缺失数据，处理后数据集样本量从4240减少到3658，保留了原始数据的86.3\%。
+
+\subsubsection{特征标准化}
+
+本研究采用Z-score标准化方法，将各数值型特征转换为均值为0、标准差为1的标准正态分布形式：
+\begin{equation}
+X_{\text{标准化}} = \frac{X - \mu}{\sigma}
+\end{equation}
+其中，$X$为原始特征值，$\mu$为该特征的平均值，$\sigma$为该特征的标准差。标准化处理仅使用训练集的统计量进行拟合，然后将相同的转换应用于测试集，防止数据泄露。
+
+\subsubsection{类别不平衡处理}
+
+数据集中阳性（患病）与阴性（未患病）样本的比例约为1:5.57，存在较大的类别不平衡问题~\cite{chawla2002smote}。本研究采用SMOTE过采样与RandomUnderSampler欠采样的组合策略~\cite{he2009learning}：首先对少数类应用SMOTE算法进行过采样，使其数量达到原多数类的80\%；随后对多数类进行适度欠采样，最终使两类样本比例接近1:1.25。
+
+\subsection{特征工程}
+
+本研究采用多种互补的特征选择方法~\cite{guyon2003introduction}：(1) 基于统计检验的过滤式特征选择方法，对分类特征采用卡方检验，对连续型特征采用单因素方差分析；(2) 基于模型的嵌入式特征选择技术，使用随机森林和极端随机树的内置特征重要性评估功能；(3) 基于相关性分析的特征评估方法，计算各特征间的相关系数矩阵。
+
+\subsection{传统机器学习模型}
+
+本研究选择了五种代表性的传统机器学习算法：
+
+\textbf{逻辑回归}：通过logistic函数将线性回归的输出转换为概率值，适用于二分类问题。模型采用L2正则化技术控制复杂度。
+
+\textbf{支持向量机}~\cite{cortes1995support}：在特征空间中寻找最优分割超平面。本研究选择径向基函数（RBF）作为核函数，能够有效捕捉特征间的非线性关系。
+
+\textbf{决策树}：采用CART算法实现，使用基尼不纯度作为节点分裂准则。通过max\_depth参数控制树的最大深度，防止过拟合。
+
+\textbf{K最近邻算法}：基于"相似的样本应该具有相似的属性"假设，通过对邻居的加权提高预测精度。
+
+\textbf{随机森林}~\cite{breiman2001random}：通过构建多个决策树并结合它们的预测结果，核心思想是基于自助采样和随机特征选择。
+
+\subsection{集成学习模型}
+
+\subsubsection{基础集成模型}
+
+本研究构建了三种基础集成模型：(1) 投票分类器，结合逻辑回归、K近邻、支持向量机和随机森林，采用软投票策略；(2) AdaBoost模型，使用决策树桩作为基学习器；(3) 梯度提升机和XGBoost模型~\cite{chen2016xgboost}。
+
+\subsubsection{堆叠集成模型}
+
+堆叠集成学习通过将多个基学习器的预测结果作为输入，训练一个元学习器来产生最终预测~\cite{wolpert1992stacked}。本研究构建了两类堆叠模型：
+
+\textbf{同质堆叠集成}：基学习器来自同一算法家族。树模型同质堆叠包含随机森林、梯度提升机、XGBoost和极端随机树；线性模型同质堆叠包含标准逻辑回归、L1正则化逻辑回归、岭分类器和随机梯度下降分类器。
+
+\textbf{异质堆叠集成}：整合来自不同算法家族的基学习器，包括多样化异质堆叠（整合随机森林、支持向量机、逻辑回归、K近邻和梯度提升）和最优模型异质堆叠。元学习器采用逻辑回归，通过5折交叉验证生成基学习器的训练集预测作为输入。
+
+\subsection{深度学习模型}
+
+本研究构建了两种深度学习模型~\cite{goodfellow2016deep}：
+
+\textbf{多层感知机（MLP）}：采用三层隐藏层设计（64-32-16神经元），每层使用ReLU激活函数和30\%的Dropout正则化~\cite{srivastava2014dropout}，输出层使用Softmax激活函数。
+
+\textbf{卷积神经网络（CNN）}：将16个特征重新排列为4×4矩阵，通过两个卷积层（32和64个滤波器）和最大池化层提取特征，最后通过全连接层输出预测。
+
+两种模型均使用Adam优化器（学习率0.001），损失函数采用分类交叉熵，实现了早停机制监控验证集损失。
+
+\subsection{超参数优化}
+
+本研究采用网格搜索结合5折交叉验证进行超参数优化~\cite{bergstra2012random}，以ROC曲线下面积作为主要评价指标。所有超参数优化都在训练集内部通过交叉验证完成，最终选定的最优参数组合用于训练完整模型并在独立测试集上评估。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\heiti 实验结果与分析}
+
+\subsection{实验设置}
+
+数据集按8:2的比例划分为训练集和测试集，采用分层抽样确保训练集和测试集中的类别分布与原始数据集保持一致。所有实验采用相同的评估指标：准确率、精确率、召回率、F1分数和AUC值。
+
+\subsection{传统模型性能评估}
+
+表1展示了五种传统机器学习模型的性能对比结果。
+
+\begin{table}[htbp]
+\centering {\heiti 表1\quad 传统模型性能指标比较}
+\vspace {-2.5mm}
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+模型 & 准确率 & 精确率 & 召回率 & F1分数 & AUC \\
+\hline
+逻辑回归 & 0.683 & 0.64 & 0.62 & 0.632 & 0.731 \\
+K近邻 & 0.757 & 0.68 & 0.84 & 0.753 & 0.838 \\
+决策树 & 0.815 & 0.77 & 0.82 & 0.795 & 0.828 \\
+支持向量机 & 0.828 & 0.84 & 0.75 & 0.794 & 0.909 \\
+随机森林 & 0.893 & 0.89 & 0.86 & 0.876 & 0.955 \\
+\bottomrule
+\end{tabular}
+\label{tab:traditional}
+\end{center}
+\end{table}
+
+随机森林模型在所有评估指标上均表现最佳，达到了89.3\%的准确率、89\%的精确率和86\%的召回率，F1分数为0.876，AUC值高达0.955。支持向量机与决策树模型表现相近，但在精确率和召回率的平衡上略有不同。逻辑回归在所有指标上表现相对较弱，这可能是由于冠心病风险的预测涉及复杂的非线性特征交互。
+
+\subsection{集成模型性能评估}
+
+表2展示了各种集成模型的性能对比结果。
+
+\begin{table}[htbp]
+\centering {\heiti 表2\quad 集成模型性能指标比较}
+\vspace {-2.5mm}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+集成模型类型 & 准确率 & F1分数 & AUC \\
+\hline
+投票分类器 & 0.871 & 0.849 & 0.934 \\
+AdaBoost & 0.849 & 0.826 & 0.905 \\
+梯度提升 & 0.886 & 0.872 & 0.942 \\
+XGBoost & 0.880 & 0.864 & 0.936 \\
+树模型同质堆叠 & 0.912 & 0.899 & 0.962 \\
+线性模型同质堆叠 & 0.679 & 0.626 & 0.731 \\
+多样化异质堆叠 & \textbf{0.920} & \textbf{0.907} & \textbf{0.963} \\
+最优模型异质堆叠 & 0.917 & 0.904 & 0.963 \\
+\bottomrule
+\end{tabular}
+\label{tab:ensemble}
+\end{center}
+\end{table}
+
+异质堆叠集成模型整体表现出色，所有配置的准确率均超过91\%（除线性模型外），AUC值均在0.95以上。其中，多样化异质堆叠在准确率上表现最佳，达到92.0\%，同时AUC值也最高，为0.963。最佳集成模型比最佳传统模型（随机森林）的准确率高出2.7个百分点，F1分数提高了3.1个百分点。
+
+同质堆叠集成模型的性能存在显著差异：树模型同质堆叠表现优异（AUC=0.962），而线性模型同质堆叠性能相对较弱（AUC=0.731），表明基学习器的个体性能对集成效果有决定性影响。
+
+\subsection{深度学习模型性能评估}
+
+表3展示了深度学习模型的性能表现。
+
+\begin{table}[htbp]
+\centering {\heiti 表3\quad 深度学习模型性能指标}
+\vspace {-2.5mm}
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+模型 & 准确率 & 精确率 & 召回率 & F1分数 & AUC \\
+\hline
+多层感知机 & 0.759 & 0.81 & 0.77 & 0.738 & 0.838 \\
+卷积神经网络 & 0.773 & 0.83 & 0.80 & 0.757 & 0.851 \\
+\bottomrule
+\end{tabular}
+\label{tab:deep}
+\end{center}
+\end{table}
+
+CNN模型在各项评估指标上均略优于MLP模型，准确率达到77.33\%，AUC值为0.851。然而，与集成学习模型相比，两种深度学习模型的性能均显著偏低。训练过程分析显示，两种模型都表现出明显的过拟合趋势，这主要归因于数据量不足（仅3658个样本）和模型参数量过大（MLP约7000个，CNN约23000个）~\cite{lecun2015deep}。
+
+\subsection{推理效率分析}
+
+表4展示了不同应用场景的最优模型推荐，基于帕累托前沿分析结果。
+
+\begin{table}[htbp]
+\centering {\heiti 表4\quad 不同应用场景的最优模型推荐}
+\vspace {-2.5mm}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+应用场景 & 推荐模型 & 推理时间(ms) & AUC \\
+\hline
+资源受限环境 & XGBoost & 3.62 & 0.936 \\
+实时反馈应用 & 梯度提升 & 8.26 & 0.942 \\
+一般临床决策 & 树模型同质堆叠 & 131.77 & 0.962 \\
+高精度风险评估 & 多样化异质堆叠 & 492.49 & 0.963 \\
+\bottomrule
+\end{tabular}
+\label{tab:inference}
+\end{center}
+\end{table}
+
+分析结果显示，不同类型的集成模型在预测性能和推理速度上呈现明显的权衡关系。XGBoost以3.62毫秒的推理时间和0.936的AUC值为资源受限环境提供了最佳选择；多样化异质堆叠模型虽然推理时间达到492.49毫秒，但0.963的AUC值确保了最高的预测准确性。
+
+\subsection{特征重要性分析}
+
+通过随机森林模型和置换重要性方法评估各特征的预测价值。如图~\ref{fig:feature_importance}结果显示，最重要的五个特征依次为：年龄（0.1362）、教育水平（0.1332）、收缩压（0.1202）、总胆固醇（0.098）和舒张压（0.0963）。
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.65\textwidth]{f1.png} 
+    \caption{特征重要性排序} 
+    \label{fig:feature_importance}
+\end{figure}
+
+如图~\ref{fig:interaction}显示，特征交互作用分析揭示了收缩压与舒张压之间存在最强的交互作用（交互强度0.811），其次是年龄与收缩压、总胆固醇与舒张压等重要交互关系。二维部分依赖图分析显示，高年龄与低教育水平的组合会大幅增加冠心病风险，这一发现表明教育水平可能在一定程度上调节年龄对冠心病风险的影响，对个体化预防和风险分层具有重要意义。
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.65\textwidth]{f2.png} 
+    \caption{主要特征交互热图} 
+    \label{fig:interaction}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\heiti 结论}
+
+本研究系统地探讨了机器学习方法在冠心病风险预测中的应用价值，主要结论如下：
+
+(1) 集成学习方法，特别是异质堆叠集成模型，在冠心病风险预测任务上表现最佳，准确率达到92.0\%，AUC值高达0.963，显著优于传统单一模型。这种性能提升在医学诊断领域具有重要的临床意义。
+
+(2) 在小样本结构化医疗数据上，深度学习模型（MLP和CNN）的表现不如集成学习模型，主要原因是数据量不足导致的过拟合问题。这表明在选择机器学习方法时，应充分考虑数据特性和任务需求。
+
+(3) 通过帕累托前沿分析，本研究为不同临床应用场景提供了针对性的模型选择建议：资源受限环境可选择XGBoost，高精度风险评估场景可选择多样化异质堆叠模型。
+
+(4) 特征重要性分析验证了传统冠心病风险因素（年龄、血压、胆固醇）的重要性，并揭示了社会因素（教育水平）对疾病风险的潜在影响及其与年龄的交互作用。
+
+本研究的局限性包括：数据集规模有限、数据来源单一（仅Framingham人群）、缺乏前瞻性验证等。未来研究可从数据扩展与整合、方法学创新（迁移学习、联邦学习）、临床应用转化等方向进一步拓展。
+
+\clearpage
+
+\vspace {10mm}
+\centerline
+{\zihao{5}\textsf{参~考~文~献}}
+\zihao{5-} \addtolength{\itemsep}{-1em}
+\vspace {1.5mm}
+\bibliographystyle{gbt7714-numerical}
+\bibliography{ref.bib}
+
+
+\clearpage
+\section*{\heiti 附录}
+\addcontentsline{toc}{section}{附录}
+本研究的完整实验代码已开源，托管于GitHub平台。代码仓库包含论文latex源码、数据集、全流程代码实现过程版本，可通过以下链接访问：
+\begin{center}
+\url{https://github.com/Chronusyt/---}
+\end{center}
+
+\end{document}
